@@ -13,6 +13,7 @@ public class Main {
         int life =10;
         Scanner input = new Scanner(System.in);
         System.out.println(movie);
+        String wrongLetter ="";
         while(life>0){
             System.out.print("You are guessing: ");
             char userInput = input.next().charAt(0);
@@ -25,19 +26,28 @@ public class Main {
             }
             System.out.println(movie);
             if(!check){
-                life--;
+                boolean contain = false;
+                for(int i=0;i<wrongLetter.length();i++){
+                    if(wrongLetter.charAt(i)==userInput){
+                        contain=true;
+                    }
+                }
+                if(!contain){
+                    wrongLetter+=(" " + userInput);
+                    life--;
+                }
             }
             boolean win = true;
             for(int i=0;i<movieLength;i++){
-                if(movie[i]=='_'){
+                if(movie[i] == '_'){
                     win =false;
                 }
             }
             if(win){
-                System.out.println("Yay,You Win 🤑🤑");
+                System.out.println("You Win");
                 return;
             }
-            System.out.println("You have guessed (" + (10-life) + ") wrong letters (" + life + ") chances left");
+            System.out.println("You have guessed (" + (10-life) + ") wrong letters: " + wrongLetter);
         }
         System.out.println("You Loose 😔😔😔");
     }
